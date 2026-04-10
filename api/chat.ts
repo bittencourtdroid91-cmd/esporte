@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI } from '@google/genai';
 
-const model = 'gemini-2.5-flash';
+const model = 'gemini-1.5-flash';
 
 const withCors = (res: VercelResponse) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,15 +34,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    // Note: In @google/genai ^1.49.0, systemInstruction is a top-level property of GenerateContentParameters.
-    // However, the TypeScript definitions in this version might still expect it inside 'config'.
-    // We use @ts-ignore if needed, but based on runtime check, it works at top level.
     const response = await ai.models.generateContent({
       model,
-      // @ts-ignore: systemInstruction is supported at top level in newer SDKs
-      systemInstruction:
-        protocol?.prompt_ia_assistente ||
-        'Você é uma assistente de saúde focada em Hashimoto + Wegovy. Responda de forma segura e objetiva.',
       contents: [
         {
           role: 'user',
@@ -61,6 +54,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           ],
         },
       ],
+      config: {
+        systemInstruction:
+          protocol?.prompt_ia_assistente ||
+          'Você é uma assistente de saúde focada em Hashimoto + Wegovy. Responda de forma segura e objetiva.',
+      },
     });
 
     return res.status(200).json({ text: response.text ?? 'Sem resposta no momento.' });
