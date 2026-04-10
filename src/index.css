@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: #ffb0cd;
+  --color-primary-container: #f751a1;
+  --color-on-primary: #640039;
+  --color-on-primary-container: #570032;
+  
+  --color-secondary: #adc6ff;
+  --color-secondary-container: #0566d9;
+  --color-on-secondary: #002e6a;
+  --color-on-secondary-container: #e6ecff;
+  
+  --color-tertiary: #ffb95f;
+  --color-tertiary-container: #ca8100;
+  --color-on-tertiary: #472a00;
+  --color-on-tertiary-container: #3e2400;
+  
+  --color-background: #141219;
+  --color-surface: #141219;
+  --color-surface-container: #211e26;
+  --color-surface-container-low: #1d1a22;
+  --color-surface-container-high: #2b2931;
+  --color-surface-container-highest: #36333b;
+  
+  --color-on-surface: #e6e0eb;
+  --color-on-surface-variant: #debec8;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-sans;
+  }
+}
+
+.glass-card {
+  @apply bg-surface-container/40 backdrop-blur-xl border border-on-surface/10;
+}
+
+.emerald-glow {
+  box-shadow: 0 0 15px 2px rgba(52, 211, 153, 0.3);
+}
+
+.biological-glow-primary {
+  box-shadow: 0 0 40px 8px rgba(255, 176, 205, 0.08);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
